@@ -13,7 +13,7 @@ from matplotlib.colors import LogNorm
 import matplotlib.pyplot as plt
 
 
-def plot_star(x_min=0, x_max=0, y_min=0, y_max=0, file_url="", ccd_id_num=7, is_default=True):
+def plot_star(x_min=4000, x_max=4200, y_min=4000, y_max=4150, file_url="", ccd_id_num=7, is_default=True):
     hdu_list = fits.open(file_url, memmap=True)
     evt_data = Table(hdu_list[1].data)
     
@@ -22,21 +22,19 @@ def plot_star(x_min=0, x_max=0, y_min=0, y_max=0, file_url="", ccd_id_num=7, is_
 
 
     NBINS = (100,100)
-    if(is_default == False):
-        img_zero_mpl = plt.hist2d(evt_data['x'][ii], evt_data['y'][ii], NBINS, [[x_min, x_max], [y_min, y_max]], cmap='viridis', norm=LogNorm())
-    else:
+    if(is_default == True):
         img_zero_mpl = plt.hist2d(evt_data['x'][ii], evt_data['y'][ii], NBINS, cmap='viridis', norm=LogNorm())
 
-    cbar = plt.colorbar(ticks=[1.0,3.0,6.0])
-    cbar.ax.set_yticklabels(['1','3','6'])
+        cbar = plt.colorbar(ticks=[1.0,3.0,6.0])
+        cbar.ax.set_yticklabels(['1','3','6'])
 
-    plt.xlabel('x')
-    plt.ylabel('y')
+        plt.xlabel('x')
+        plt.ylabel('y')
 
     return ii
 
 
-def plot_box(file_url, xcenter, ycenter, box_width=10, ccd_id_num = 7, is_default = True):
+def plot_box(file_url, xcenter, ycenter, box_width=10, ccd_id_num = 7, is_default = True, c_line = False):
 	
     """
     event_list : FITS table data object that contains the list of events
@@ -50,7 +48,12 @@ def plot_box(file_url, xcenter, ycenter, box_width=10, ccd_id_num = 7, is_defaul
     y_min = ycenter - box_width
     y_max = ycenter + box_width
     
-    return plot_star(x_min, x_max, y_min, y_max, file_url, ccd_id_num, is_default)
+    if ((c_line == True) & is_default):
+        
+        return plot_star(x_min, x_max, y_min, y_max, file_url, ccd_id_num, is_default), plt.axvline(xcenter, color = 'k'), plt.axhline(ycenter, color = 'r')
+    
+    else:
+        return plot_star(x_min, x_max, y_min, y_max, file_url, ccd_id_num, is_default)
 
 def determine_center(file_url, xmid0, ymid0, perror, boxw = 10):
     
@@ -63,8 +66,8 @@ def determine_center(file_url, xmid0, ymid0, perror, boxw = 10):
     ry = 10.0
     
     while rx > perror and ry > perror:
-        ii = plot_box(file_url, xmid0, ymid0, boxw)
-    
+        
+        ii = plot_box(file_url, xmid0, ymid0, boxw, is_default = False)
         xmid = np.median(evt_data['x'][ii])
         ymid = np.median(evt_data['y'][ii])
         
@@ -77,11 +80,3 @@ def determine_center(file_url, xmid0, ymid0, perror, boxw = 10):
             ymid0 = ymid
 
 
-x_mid , y_mid = determine_center('/Users/javierguerrero/code/spices/6601/primary/acisf06601N002_evt2.fits', 4099.25, 4109, .05)
-
-ii = plot_box('/Users/javierguerrero/code/spices/6601/primary/acisf06601N002_evt2.fits', x_mid, y_mid, 10, is_default=False)
-
-
-plt.axvline(x_mid, color = 'k')
-plt.axhline(y_mid, color = 'r')
-    
