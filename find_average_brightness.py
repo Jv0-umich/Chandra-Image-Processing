@@ -15,18 +15,18 @@ from astropy.io import fits
 from astropy.table import Table
 from matplotlib.colors import LogNorm
 import numpy as np
-obsid = sys.argv[1]
-input_x = sys.argv[2]
-input_y = sys.argv[3]
-width = sys.argv[4]
-immin = sys.argv[5]
-immax = sys.argv[6]
+DATADIR = sys.argv[1]
+obsid = sys.argv[2]
+input_x = sys.argv[3]
+input_y = sys.argv[4]
+width = sys.argv[5]
+immin = sys.argv[6]
+immax = sys.argv[7]
 width = float(width)
 immin = float(immin)
 immax = float(immax)
 
 
-DATADIR = "/Users/javierguerrero/code/Urop/images/"
 image_url = DATADIR + obsid + "_evt2.fits"
 image_save = DATADIR + "/" + obsid + obsid + "_evt2.fits"
 

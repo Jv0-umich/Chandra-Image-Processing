@@ -100,10 +100,10 @@ def radial_profile(xmid, ymid, file_url,R_bin = RBINS):
         X cordinate for center.
     ymid : float
         y cordinate for center.
-    ii : Fits table data
+    file_url : link to data being analyzed
         Filtered list of events.
     R_bin : Array, optional
-        Bin values for what radial profiles are wanted. The default is [1,2,3].
+        Bin values for what radial profiles are wanted. The default is the global RBINS.
 
     Returns
     -------
@@ -130,8 +130,27 @@ def radial_profile(xmid, ymid, file_url,R_bin = RBINS):
     return np.array(midpoints),np.array(result)
     
     
-def sub_mean_brightness(xmid, ymid, midpoints, surfbright, file_url, xedges, yedges, width = 500):
-    
+def sub_mean_brightness(xmid, ymid, midpoints, surfbright, xedges, yedges, width = 500):
+    """
+    Parameters
+    ----------
+    xmid : float
+        X cordinate for center.
+    ymid : float
+        y cordinate for center.
+    midpoints : doubles array
+        Array of values with units photons/pixel^2 designating middle of the rbins taken with radial profile
+    width : double, optional
+        double indicating width of image to be created, 500 is limit unless rbins are modified.
+    xedges, yedges: arrays
+        limits of image to be calculated from
+
+    Returns
+    -------
+    array
+        Array of values of surface brightness that can be plotted  as well as various values that were calculated in the process
+
+    """
     
     negative = [element * -1 for element in midpoints]
     gridmidpoints = np.concatenate((negative,midpoints))

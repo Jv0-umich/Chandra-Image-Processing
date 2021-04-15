@@ -9,12 +9,11 @@ import sys
 from Header import determine_center
 from Header import plot_box
 import matplotlib.pyplot as plt
+DATADIR = sys.argv[1]
+obsid = sys.argv[2]
+input_x = sys.argv[3]
+input_y = sys.argv[4]
 
-obsid = sys.argv[1]
-input_x = sys.argv[2]
-input_y = sys.argv[3]
-
-DATADIR = "/Users/javierguerrero/code/Urop/images/"
 image_url = DATADIR + obsid + "_evt2.fits"
 
 input_x = float(input_x)
