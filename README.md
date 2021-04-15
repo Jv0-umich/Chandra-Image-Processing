@@ -20,3 +20,8 @@ recommended inputs for all files:
  y-sample_cordinate_of_center(recommended default 4100) (following inputs only needed for find brightness file) width_of_image(max 250 unless RBINS is modified) lower_limit_of_surfbrightness_bar upper_limit_of_surfbrightness_bar
 
 quotes are strings and underscored inputs are integers or doubles (they are converted to float by the tools)
+
+
+Example:
+
+./find_average_brightness.py /Users/jhonndoe/code/Urop/images/ 4U_1630-472 4100 4100 250 -120 400
