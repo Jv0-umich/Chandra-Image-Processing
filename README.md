@@ -15,6 +15,7 @@ make_image.py: creates base image with no alterations of provided chandra data
 Inputs:
 
 recommended inputs for all files: 
+
 ./file.py "directory in which data is located" "Name of _evt2.fits file" x-sample_cordinate_of_center(recommended default 4100) y-sample_cordinate_of_center(recommended default 4100) (following inputs only needed for find brightness file) width_of_image(max 250 unless RBINS is modified) lower_limit_of_surfbrightness_bar upper_limit_of_surfbrightness_bar
 
 quotes are strings and underscored inputs are integers or doubles (they are converted to float by the tools)
