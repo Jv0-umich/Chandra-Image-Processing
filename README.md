@@ -1,6 +1,7 @@
 # Chandra-Image-Processing
 Chandra image processing tools for UROP Project
 Tools:
+
 Header.py: stores all python functions required for tools to work
 
 find_average_brightness.py: creates modified image of given data to substract the average brightness radially with given width(width greater than 500 requires modifing rbins in Header.py
